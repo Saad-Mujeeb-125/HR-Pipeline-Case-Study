@@ -1,0 +1,9 @@
+﻿seq,stage,reached,conversion_from_prev_pct,day_median_n,median_days_from_prev
+-2,exit: Offer Declined,16,,,
+-1,exit: Rejected,1310,,,
+0,ALL Applied->Hired,74,5.29,74,9.0
+1,Applied,1400,100.00,,
+2,Screened,682,48.71,682,9.0
+3,Interviewed,263,38.56,263,9.0
+4,Offered,90,34.22,90,9.0
+5,Hired,74,82.22,74,9.0

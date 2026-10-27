@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Indus Weave Textiles - PeopleOps Dashboard</title>
+<style>
+body { font-family: 'Segoe UI', Arial, sans-serif; margin: 24px auto; max-width: 1100px;
+       color: #1d2733; background: #f4f6f9; }
+h1 { font-size: 22px; border-bottom: 3px solid #20456b; padding-bottom: 8px; }
+h2 { font-size: 16px; margin: 30px 0 8px; color: #20456b; }
+.sub { color: #5a6b7d; font-size: 13px; }
+.tiles { display: flex; flex-wrap: wrap; gap: 12px; }
+.tile { background: #fff; border: 1px solid #d8dee7; border-radius: 8px;
+        padding: 14px 18px; min-width: 170px; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.tile .v { font-size: 24px; font-weight: 700; color: #20456b; }
+.tile .l { font-size: 12px; color: #5a6b7d; margin-top: 2px; }
+.bar-row { display: flex; align-items: center; margin: 4px 0; }
+.bar-l { width: 190px; font-size: 13px; text-align: right; padding-right: 8px; }
+.bar-a { flex: 1; background: #e8edf4; border-radius: 4px; position: relative; height: 22px; }
+.bar-f { background: linear-gradient(90deg, #2e6da4, #57a0d3); border-radius: 4px;
+         height: 22px; min-width: 2px; }
+.bar-v { width: 110px; font-size: 13px; padding-left: 8px; white-space: nowrap; }
+table { border-collapse: collapse; background: #fff; }
+th, td { border: 1px solid #d8dee7; padding: 6px 12px; font-size: 13px; }
+th { background: #20456b; color: #fff; }
+tr.flag td { background: #fdecec; font-weight: 600; }
+</style></head><body>
+<h1>Indus Weave Textiles &mdash; PeopleOps Dashboard</h1>
+<div class="sub">Generated 2026-10-27 19:26 &middot; reads ONLY the IndusWeaveHR warehouse
+star schema (dim_* / fact_*) &middot; bonus task B4, case-study PDF p.7</div>
+
+<div class='tiles'>
+<div class='tile'><div class='v'>217,584</div><div class='l'>attendance employee-days</div></div>
+<div class='tile'><div class='v'>1,266</div><div class='l'>current employees</div></div>
+<div class='tile'><div class='v'>36,402</div><div class='l'>approved OT hours</div></div>
+<div class='tile'><div class='v'>8,604</div><div class='l'>paid leave days</div></div>
+<div class='tile'><div class='v'>PKR 695,019,178</div><div class='l'>payroll EARNING (6 months)</div></div>
+<div class='tile'><div class='v'>1,266</div><div class='l'>distinct employees paid</div></div>
+</div>
+<h2>Attendance status mix (217k employee-days, Apr&ndash;Sep 2026)</h2>
+<div class="bar-row"><div class="bar-l">Present</div><div class="bar-a"><div class="bar-f" style="width:100.0%"></div></div><div class="bar-v">159,825</div></div>
+<div class="bar-row"><div class="bar-l">Weekly Off</div><div class="bar-a"><div class="bar-f" style="width:13.9%"></div></div><div class="bar-v">22,215</div></div>
+<div class="bar-row"><div class="bar-l">Holiday</div><div class="bar-a"><div class="bar-f" style="width:6.7%"></div></div><div class="bar-v">10,759</div></div>
+<div class="bar-row"><div class="bar-l">Missing Punch</div><div class="bar-a"><div class="bar-f" style="width:6.6%"></div></div><div class="bar-v">10,599</div></div>
+<div class="bar-row"><div class="bar-l">On Leave</div><div class="bar-a"><div class="bar-f" style="width:5.4%"></div></div><div class="bar-v">8,604</div></div>
+<div class="bar-row"><div class="bar-l">Absent</div><div class="bar-a"><div class="bar-f" style="width:3.5%"></div></div><div class="bar-v">5,582</div></div>
+<h2>Payroll EARNING by month</h2>
+<div class="bar-row"><div class="bar-l">2026-04</div><div class="bar-a"><div class="bar-f" style="width:91.5%"></div></div><div class="bar-v">110,945,107</div></div>
+<div class="bar-row"><div class="bar-l">2026-05</div><div class="bar-a"><div class="bar-f" style="width:91.4%"></div></div><div class="bar-v">110,746,861</div></div>
+<div class="bar-row"><div class="bar-l">2026-06</div><div class="bar-a"><div class="bar-f" style="width:92.0%"></div></div><div class="bar-v">111,460,953</div></div>
+<div class="bar-row"><div class="bar-l">2026-07</div><div class="bar-a"><div class="bar-f" style="width:100.0%"></div></div><div class="bar-v">121,207,135</div></div>
+<div class="bar-row"><div class="bar-l">2026-08</div><div class="bar-a"><div class="bar-f" style="width:99.4%"></div></div><div class="bar-v">120,444,670</div></div>
+<div class="bar-row"><div class="bar-l">2026-09</div><div class="bar-a"><div class="bar-f" style="width:99.2%"></div></div><div class="bar-v">120,214,452</div></div>
+<h2>Overtime: PAID units (payroll) vs COMPUTED hours (attendance) per department &mdash; red = paid &gt; computed +5% (the q06 finding)</h2>
+<div class="bar-row"><div class="bar-l">Stitching &middot; computed 4,902 h</div><div class="bar-a"><div class="bar-f" style="width:100.0%";background:linear-gradient(90deg,#c0392b,#e07b6e)></div></div><div class="bar-v">7,659.0</div></div>
+<div class="bar-row"><div class="bar-l">Weaving &middot; computed 4,182 h</div><div class="bar-a"><div class="bar-f" style="width:48.1%"></div></div><div class="bar-v">3,685.0</div></div>
+<div class="bar-row"><div class="bar-l">Spinning &middot; computed 3,768 h</div><div class="bar-a"><div class="bar-f" style="width:43.7%"></div></div><div class="bar-v">3,344.0</div></div>
+<div class="bar-row"><div class="bar-l">Dyeing &middot; computed 3,667 h</div><div class="bar-a"><div class="bar-f" style="width:42.5%"></div></div><div class="bar-v">3,252.5</div></div>
+<div class="bar-row"><div class="bar-l">Finishing &middot; computed 3,218 h</div><div class="bar-a"><div class="bar-f" style="width:37.0%"></div></div><div class="bar-v">2,834.0</div></div>
+<div class="bar-row"><div class="bar-l">Cutting &middot; computed 2,696 h</div><div class="bar-a"><div class="bar-f" style="width:31.1%"></div></div><div class="bar-v">2,380.0</div></div>
+<div class="bar-row"><div class="bar-l">Packing &middot; computed 2,076 h</div><div class="bar-a"><div class="bar-f" style="width:23.9%"></div></div><div class="bar-v">1,833.5</div></div>
+<div class="bar-row"><div class="bar-l">Maintenance &middot; computed 1,285 h</div><div class="bar-a"><div class="bar-f" style="width:14.9%"></div></div><div class="bar-v">1,143.5</div></div>
+<div class="bar-row"><div class="bar-l">Quality Control &middot; computed 1,242 h</div><div class="bar-a"><div class="bar-f" style="width:14.4%"></div></div><div class="bar-v">1,104.0</div></div>
+<div class="bar-row"><div class="bar-l">Quality Control &middot; computed 1,114 h</div><div class="bar-a"><div class="bar-f" style="width:12.8%"></div></div><div class="bar-v">980.5</div></div>
+<h2>Ghost pay &mdash; months paid strictly AFTER separation (q08 finding re-derived from the warehouse)</h2>
+<table><thead><tr><th>emp_id</th><th>employee</th><th>months after separation</th><th>PKR paid after</th></tr></thead><tbody><tr><td>E10471</td><td>Umair Baloch</td><td>5</td><td>660,000</td></tr><tr><td>E11222</td><td>Naveed Ansari</td><td>4</td><td>418,100</td></tr><tr><td>E10332</td><td>Amna Awan</td><td>4</td><td>322,000</td></tr><tr><td>E10989</td><td>Tariq Jatoi</td><td>4</td><td>294,100</td></tr><tr><td>E10295</td><td>Sohail Hussain</td><td>4</td><td>253,800</td></tr></tbody></table>
+<h2>Paid leave days by type</h2>
+<div class="bar-row"><div class="bar-l">Annual</div><div class="bar-a"><div class="bar-f" style="width:100.0%"></div></div><div class="bar-v">5,489</div></div>
+<div class="bar-row"><div class="bar-l">Casual</div><div class="bar-a"><div class="bar-f" style="width:32.1%"></div></div><div class="bar-v">1,762</div></div>
+<div class="bar-row"><div class="bar-l">Sick</div><div class="bar-a"><div class="bar-f" style="width:24.6%"></div></div><div class="bar-v">1,353</div></div>
+
+</body></html>

@@ -1,0 +1,129 @@
+/* =====================================================================
+ER diagram for the warehouse star schema (Stage 4 deliverable, PDF p.6).
+
+Open with dbdiagram.io (paste this file's contents at dbdiagram.io) or
+import the .dbml with dbdiagram's CLI; it exports a PNG/PDF directly.
+Conforms to how the tables are actually built in the database:
+
+  pipeline/warehouse/ddl/stage4_dimensions.sql  (dims, with counts)
+  pipeline/warehouse/ddl/stage4_facts.sql       (facts, with counts)
+
+Verified counts (25 Oct 2026):
+  dims: dim_date 365 | dim_shift 4 | dim_department 25 | dim_employee 3,686 (SCD2, 1,266 current)
+  facts: fact_attendance_daily 217,584 | fact_leave_day 8,604 |
+         fact_overtime_approved 19,666 | fact_payroll_line 53,617
+===================================================================== */
+
+Table dim_date {
+  date_key int [pk]
+  full_date date
+  year_no int
+  quarter_no int
+  month_no int
+  month_name varchar
+  year_month char
+  week_start date
+  day_of_month int
+  is_sunday bit
+}
+
+Table dim_shift {
+  shift_code varchar [pk]
+  shift_name varchar
+  start_time time
+  end_time time
+  crosses_midnight bit
+  grace_minutes int
+  applies_to varchar
+}
+
+Table dim_department {
+  dept_id varchar [pk]
+  dept_name varchar
+  plant varchar
+  cost_center varchar
+  previous_name varchar
+  renamed_on date
+}
+
+Table dim_employee {
+  employee_sk int [pk]
+  emp_id varchar
+  full_name varchar
+  gender varchar
+  plant varchar
+  employment_type varchar
+  hire_date date
+  separation_date date
+  status varchar
+  annual_leave_entitlement int
+  valid_from date [note: 'SCD2 - rule 2: valid from effective_from']
+  valid_to date [note: 'day BEFORE next history record; NULL = current (no end)']
+  dept_id varchar
+  designation varchar
+  grade varchar
+  basic_salary decimal
+  change_reason varchar
+  is_current bit
+  dq_note varchar
+}
+
+Table fact_attendance_daily {
+  emp_id varchar
+  work_date date
+  employee_sk int [ref: > dim_employee.employee_sk]
+  date_key int [ref: > dim_date.date_key]
+  dept_id varchar [ref: > dim_department.dept_id]
+  shift_code varchar [ref: > dim_shift.shift_code]
+  plant varchar
+  status varchar [note: 'rule 12 statuses']
+  is_from_roster int
+  punch_count int
+  check_in datetime2 [note: 'rule 10: first punch in shift window']
+  check_out datetime2 [note: 'rule 10: last punch; NIGHT row may be next day']
+  late_minutes int [note: 'rule 13']
+  early_minutes int [note: 'rule 13']
+  ot_hours decimal [note: 'rules 14-15, floored to half-hours']
+  worked_minutes int
+  is_sunday bit
+  is_holiday bit
+  on_leave bit
+  leave_request_id varchar
+}
+
+Table fact_leave_day {
+  emp_id varchar
+  leave_day date
+  leave_request_id varchar
+  employee_sk int [ref: > dim_employee.employee_sk]
+  date_key int [ref: > dim_date.date_key]
+  dept_id varchar [ref: > dim_department.dept_id]
+  leave_type varchar
+  plant varchar
+  day_in_request int
+}
+
+Table fact_overtime_approved {
+  request_id varchar [pk]
+  emp_id varchar
+  ot_date date
+  employee_sk int [ref: > dim_employee.employee_sk]
+  date_key int [ref: > dim_date.date_key]
+  dept_id varchar [ref: > dim_department.dept_id]
+  requested_hours decimal
+  approved_hours decimal [note: 'rule 19: only Approved requests']
+  approver_id varchar
+}
+
+Table fact_payroll_line {
+  line_id varchar [pk]
+  emp_id varchar
+  employee_sk int [ref: > dim_employee.employee_sk]
+  payroll_month char
+  date_key int [ref: > dim_date.date_key]
+  dept_id varchar [ref: > dim_department.dept_id, note: 'rule 3: dept at month end or separation']
+  component varchar
+  component_type varchar
+  units decimal
+  amount decimal
+}
